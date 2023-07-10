@@ -20,6 +20,7 @@ const SeriesList = () => {
       {Object.keys(data).map((series) => (
         <div key={series}>
           <h2 className="font-bold">{series}</h2>
+          <img src={data[series].url} alt={series} />
           <ul>
             {Object.keys(data[series].genres).map((genre) => (
               <li
