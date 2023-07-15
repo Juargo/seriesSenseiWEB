@@ -16,24 +16,36 @@ const SeriesList = () => {
   }, []);
 
   return (
-    <div className="flex m-2 gap-4">
+    <div
+      className="grid m-2 gap-3"
+      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))" }}
+    >
       {Object.keys(data).map((series) => (
-        <div key={series}>
-          <h2 className="font-bold">{series}</h2>
-          <img src={data[series].url} alt={series} />
-          <ul>
-            {Object.keys(data[series].genres).map((genre) => (
-              <li
-                key={genre}
-                className="text-[.8rem] flex w-[13em] justify-around"
-              >
-                <span className="w-[13em] text-end"> {genre}: </span>
-                <ProgressBar percentage={data[series].genres[genre]} />
-                {/* {data[series].genres[genre]} */}
-              </li>
-            ))}
-          </ul>
-          {/* <p>{data[series].sinopsis}</p> */}
+        <div key={series} className=" b-gray-400 border-[.09rem] rounded-md">
+          <h2 className="font-bold bg-[#554A91] text-white text-[.7rem] p-[.4rem]">
+            {series}
+          </h2>
+          <div className="bg-white w-full h-[31rem]">
+            <div className="h-[9rem] relative">
+              <img
+                src={data[series].url}
+                alt={series}
+                className="w-full h-full object-fill"
+              />
+            </div>
+            <ul className="p-[.4rem]">
+              {Object.keys(data[series].genres).map((genre) => (
+                <li
+                  key={genre}
+                  className="text-[.7rem] flex w-[15em] justify-around"
+                >
+                  <span className="w-[13em] text-end"> {genre}: </span>
+                  <ProgressBar percentage={data[series].genres[genre]} />
+                  {/* {data[series].genres[genre]} */}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       ))}
     </div>
