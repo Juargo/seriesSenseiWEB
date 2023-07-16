@@ -23,7 +23,7 @@ const SeriesList = () => {
       const datos = await respuesta.json();
 
       // Ahora puedes usar los datos
-      console.log(datos);
+      getSeries();
     } catch (error) {
       console.error("Hubo un problema con la petición Fetch:", error);
     }
