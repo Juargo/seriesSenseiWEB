@@ -15,6 +15,20 @@ const SeriesList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const getDataChatGPT = async (serie) => {
+    try {
+      const respuesta = await fetch(
+        `http://127.0.0.1:5000/series/get-chatgpt-data?anime=${serie}`
+      );
+      const datos = await respuesta.json();
+
+      // Ahora puedes usar los datos
+      console.log(datos);
+    } catch (error) {
+      console.error("Hubo un problema con la petición Fetch:", error);
+    }
+  };
+
   return (
     <div
       className="grid m-2 gap-3"
@@ -34,16 +48,24 @@ const SeriesList = () => {
               />
             </div>
             <ul className="p-[.4rem]">
-              {Object.keys(data[series].genres).map((genre) => (
-                <li
-                  key={genre}
-                  className="text-[.7rem] flex w-[15em] justify-around"
+              {data[series].genres ? (
+                Object.keys(data[series].genres).map((genre) => (
+                  <li
+                    key={genre}
+                    className="text-[.7rem] flex w-[15em] justify-around"
+                  >
+                    <span className="w-[13em] text-end"> {genre}: </span>
+                    <ProgressBar percentage={data[series].genres[genre]} />
+                  </li>
+                ))
+              ) : (
+                <button
+                  onClick={() => getDataChatGPT(series)}
+                  className="bg-[#251D53] text-white text-[.7rem] p-[.4rem] rounded-md hover:bg-[#948ACD]"
                 >
-                  <span className="w-[13em] text-end"> {genre}: </span>
-                  <ProgressBar percentage={data[series].genres[genre]} />
-                  {/* {data[series].genres[genre]} */}
-                </li>
-              ))}
+                  Recolectar data
+                </button>
+              )}
             </ul>
           </div>
         </div>
