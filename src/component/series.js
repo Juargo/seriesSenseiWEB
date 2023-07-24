@@ -5,7 +5,8 @@ const SeriesList = () => {
   const [data, setData] = useState([]);
 
   const getSeries = () => {
-    fetch("http://127.0.0.1:5000/series/getall")
+    // fetch("http://127.0.0.1:5000/series/getall")
+    fetch("https://seriessenseiapi.onrender.com/series/getall")
       .then((response) => response.json())
       .then((series) => setData(series));
   };
