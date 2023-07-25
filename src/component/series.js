@@ -59,8 +59,8 @@ const SeriesList = () => {
               {data[series].synopsis ? (
                 <p className="hidden">Synopsis: {data[series].synopsis}</p>
               ) : null}
-              {data[series].genres ? (
-                <pre> {data[series].genres.map((x) => x.name)}</pre>
+              {data[series].genres_real ? (
+                <pre> {data[series].genres_real.map((x) => x.name)}</pre>
               ) : null}
             </div>
             <ul className="p-[.4rem]">
