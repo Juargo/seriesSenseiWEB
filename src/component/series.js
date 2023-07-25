@@ -30,6 +30,26 @@ const SeriesList = () => {
     }
   };
 
+  const setAllDataAnime = async (serie) => {
+    try {
+      const respuesta = await fetch(
+        `https://seriessenseiapi.onrender.com/series/set_all_data_anime?serie=${serie}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const datos = await respuesta.json();
+
+      // Ahora puedes usar los datos
+      getSeries();
+    } catch (error) {
+      console.error("Hubo un problema con la petición Fetch:", error);
+    }
+  };
+
   return (
     <div
       className="grid m-2 gap-3"
@@ -39,8 +59,14 @@ const SeriesList = () => {
         <div key={series} className=" b-gray-400 border-[.09rem] rounded-md">
           <h2 className="font-bold bg-[#554A91] text-white text-[.7rem] p-[.4rem]">
             {series}
+            <button
+              onClick={() => setAllDataAnime(series)}
+              className="bg-[#251D53] text-white text-[.7rem] p-[.4rem] rounded-md hover:bg-[#948ACD] ml-[10px]"
+            >
+              Recolectar data
+            </button>
           </h2>
-          <div className="bg-white w-full h-[31rem]">
+          <div className="bg-white w-full h-[34rem]">
             <div className="h-[9rem] relative">
               <img
                 src={data[series].url}
@@ -48,20 +74,51 @@ const SeriesList = () => {
                 className="w-full h-full object-fill"
               />
             </div>
-            <div>
-              {data[series].duration ? (
-                <p>Duración: {data[series].duration}</p>
-              ) : null}
-              {data[series].episodes ? (
-                <p>Episodios: {data[series].episodes}</p>
-              ) : null}
-              {data[series].score ? <p>Score: {data[series].score}</p> : null}
+            <div className="text-[.7rem] p-[5px] flex flex-col items-center">
+              <table>
+                <tr>
+                  <td className="text-right">Year:</td>
+                  {data[series].year ? (
+                    <td className="pl-[7px]">{data[series].year}</td>
+                  ) : null}
+                </tr>
+                <tr>
+                  <td className="text-right">Duratión:</td>
+                  {data[series].duration ? (
+                    <td className="pl-[7px]">{data[series].duration}</td>
+                  ) : null}
+                </tr>
+                <tr>
+                  <td className="text-right">Episodes</td>
+                  {data[series].episodes ? (
+                    <td className="pl-[7px]">{data[series].episodes}</td>
+                  ) : null}
+                </tr>
+                <tr>
+                  <td className="text-right">Score:</td>
+                  {data[series].score ? (
+                    <td className="pl-[7px]"> {data[series].score}</td>
+                  ) : null}
+                </tr>
+              </table>
+
               {data[series].synopsis ? (
                 <p className="hidden">Synopsis: {data[series].synopsis}</p>
               ) : null}
-              {data[series].genres_real ? (
-                <pre> {data[series].genres_real.map((x) => x.name)}</pre>
-              ) : null}
+              <div className="flex gap-[10px] mt-[5px]">
+                {data[series] && data[series].genres_real
+                  ? data[series].genres_real.map((x, index) => {
+                      return (
+                        <p
+                          key={index}
+                          className="p-[5px] bg-blue-700 text-white"
+                        >
+                          {x.name}
+                        </p>
+                      );
+                    })
+                  : null}
+              </div>
             </div>
             <ul className="p-[.4rem]">
               {data[series].genres ? (
@@ -75,12 +132,7 @@ const SeriesList = () => {
                   </li>
                 ))
               ) : (
-                <button
-                  onClick={() => getDataChatGPT(series)}
-                  className="bg-[#251D53] text-white text-[.7rem] p-[.4rem] rounded-md hover:bg-[#948ACD]"
-                >
-                  Recolectar data
-                </button>
+                <p>No data</p>
               )}
             </ul>
           </div>
