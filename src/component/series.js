@@ -48,6 +48,21 @@ const SeriesList = () => {
                 className="w-full h-full object-fill"
               />
             </div>
+            <div>
+              {data[series].duration ? (
+                <p>Duración: {data[series].duration}</p>
+              ) : null}
+              {data[series].episodes ? (
+                <p>Episodios: {data[series].episodes}</p>
+              ) : null}
+              {data[series].score ? <p>Score: {data[series].score}</p> : null}
+              {data[series].synopsis ? (
+                <p className="hidden">Synopsis: {data[series].synopsis}</p>
+              ) : null}
+              {data[series].genres ? (
+                <pre> {data[series].genres.map((x) => x.name)}</pre>
+              ) : null}
+            </div>
             <ul className="p-[.4rem]">
               {data[series].genres ? (
                 Object.keys(data[series].genres).map((genre) => (
