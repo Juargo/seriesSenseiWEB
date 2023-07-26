@@ -4,6 +4,7 @@ import ProgressBar from "./progressBar";
 const SeriesList = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [newSerie, setNewSerie] = useState("");
 
   const getSeries = () => {
     // fetch("http://127.0.0.1:5000/series/getall")
@@ -20,6 +21,15 @@ const SeriesList = () => {
   const gridStyle = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
+  };
+
+  const handleInputChange = (event) => {
+    setNewSerie(event.target.value);
+  };
+
+  const handleButtonClick = () => {
+    setAllDataAnime(newSerie);
+    setNewSerie(""); // reset input
   };
 
   const getDataChatGPT = async (serie) => {
@@ -62,6 +72,20 @@ const SeriesList = () => {
       className="grid m-2 gap-3"
       style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))" }}
     >
+      <div>
+        <input
+          type="text"
+          value={newSerie}
+          onChange={handleInputChange}
+          className="border border-black"
+        />
+        <button
+          onClick={handleButtonClick}
+          className="bg-[#251D53] text-white text-[.7rem] p-[.4rem] rounded-md hover:bg-[#948ACD] ml-[10px]"
+        >
+          Agregar
+        </button>
+      </div>
       {isLoading && (
         <div
           style={{
