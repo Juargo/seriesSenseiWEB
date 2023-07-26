@@ -16,6 +16,11 @@ const SeriesList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const gridStyle = {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
+  };
+
   const getDataChatGPT = async (serie) => {
     try {
       const respuesta = await fetch(
@@ -105,7 +110,7 @@ const SeriesList = () => {
               {data[series].synopsis ? (
                 <p className="hidden">Synopsis: {data[series].synopsis}</p>
               ) : null}
-              <div className="flex gap-[10px] mt-[5px]">
+              <div style={gridStyle}>
                 {data[series] && data[series].genres_real
                   ? data[series].genres_real.map((x, index) => {
                       return (
