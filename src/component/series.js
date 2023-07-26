@@ -3,6 +3,7 @@ import ProgressBar from "./progressBar";
 
 const SeriesList = () => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSeries = () => {
     // fetch("http://127.0.0.1:5000/series/getall")
@@ -36,6 +37,7 @@ const SeriesList = () => {
   };
 
   const setAllDataAnime = async (serie) => {
+    setIsLoading(true);
     try {
       const respuesta = await fetch(
         `https://seriessenseiapi.onrender.com/series/set_all_data_anime?serie=${serie}`,
@@ -46,7 +48,7 @@ const SeriesList = () => {
           },
         }
       );
-      const datos = await respuesta.json();
+      const datos = await respuesta.json().then(() => setIsLoading(false));
 
       // Ahora puedes usar los datos
       getSeries();
@@ -60,6 +62,24 @@ const SeriesList = () => {
       className="grid m-2 gap-3"
       style={{ gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))" }}
     >
+      {isLoading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999, // Asegúrate de que este número sea lo suficientemente alto para superar el resto de tu contenido
+          }}
+        >
+          <div>Cargando...</div>
+        </div>
+      )}
       {Object.keys(data).map((series) => (
         <div key={series} className=" b-gray-400 border-[.09rem] rounded-md">
           <h2 className="font-bold bg-[#554A91] text-white text-[.7rem] p-[.4rem]">
