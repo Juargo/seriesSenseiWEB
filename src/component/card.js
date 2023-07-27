@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotate } from "@fortawesome/free-solid-svg-icons";
 
 const Card = ({
   clickRecolectData,
@@ -14,13 +16,16 @@ const Card = ({
 }) => {
   return (
     <div className="border-[#2E3690] border-[.09rem] rounded-md">
-      <h2 className="font-bold bg-[#474E9F] text-white text-[.7rem] p-[.4rem]">
-        {name}
+      <h2
+        className="font-bold bg-[#474E9F] text-white text-[.7rem] p-[.4rem] flex justify-between"
+        title={name}
+      >
+        {name.length > 20 ? name.substring(0, 20) + "..." : name}
         <button
           onClick={() => clickRecolectData(name)}
-          className="bg-[#251D53] text-white text-[.7rem] p-[.4rem] rounded-md hover:bg-[#948ACD] ml-[10px]"
+          className="bg-[#676DB7] text-white text-[.7rem] w-[1.4rem] rounded-md hover:bg-[#979BD5]"
         >
-          Recolectar data
+          <FontAwesomeIcon icon={faRotate} />
         </button>
       </h2>
       {/* <div className="bg-white w-full h-[34rem]">
