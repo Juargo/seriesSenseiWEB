@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from "./progressBar";
 
 const Card = ({
   clickRecolectData,
@@ -12,10 +13,10 @@ const Card = ({
   score,
   synopsis,
   genres_real,
-  genre,
+  genres,
 }) => {
   return (
-    <div className="border-[#2E3690] border-[.09rem] rounded-md">
+    <div className="border-[#2E3690] border-[1px] rounded-md">
       <h2
         className="font-bold bg-[#474E9F] text-white text-[.7rem] p-[.4rem] flex justify-between"
         title={name}
@@ -28,42 +29,50 @@ const Card = ({
           <FontAwesomeIcon icon={faRotate} />
         </button>
       </h2>
-      {/* <div className="bg-white w-full h-[34rem]">
-        <div className="h-[9rem] relative">
-          <img
-            src={data[series].url}
-            alt={series}
-            className="w-full h-full object-fill"
-          />
+      <div className="bg-white w-full h-[34rem]">
+        <div className="h-[9rem] relative p-[5px] flex  ">
+          <img src={url} alt={name} className="h-full" />
+          <div className="text-[.7rem] flex flex-col items-center justify-center">
+            <table>
+              <tr>
+                <td className="font-bold">Year:</td>
+                {year ? <td className="pl-[7px]">{year}</td> : null}
+              </tr>
+              {/* <tr>
+                <td className="text-right">Duratión:</td>
+                {duration ? <td className="pl-[7px]">{duration}</td> : null}
+              </tr> */}
+              <tr>
+                <td className="font-bold">Episodes</td>
+                {episodes ? <td className="pl-[7px]">{episodes}</td> : null}
+              </tr>
+              <tr>
+                <td className="font-bold">Score:</td>
+                {score ? <td className="pl-[7px]"> {score}</td> : null}
+              </tr>
+            </table>
+          </div>
         </div>
-        <div className="text-[.7rem] p-[5px] flex flex-col items-center">
-          <table>
-            <tr>
-              <td className="text-right">Year:</td>
-              {data[series].year ? (
-                <td className="pl-[7px]">{data[series].year}</td>
-              ) : null}
-            </tr>
-            <tr>
-              <td className="text-right">Duratión:</td>
-              {data[series].duration ? (
-                <td className="pl-[7px]">{data[series].duration}</td>
-              ) : null}
-            </tr>
-            <tr>
-              <td className="text-right">Episodes</td>
-              {data[series].episodes ? (
-                <td className="pl-[7px]">{data[series].episodes}</td>
-              ) : null}
-            </tr>
-            <tr>
-              <td className="text-right">Score:</td>
-              {data[series].score ? (
-                <td className="pl-[7px]"> {data[series].score}</td>
-              ) : null}
-            </tr>
-          </table>
 
+        <ul className="p-[.4rem]">
+          {genres ? (
+            Object.keys(genres).map((genre) => (
+              <li
+                key={genre}
+                className="text-[.7rem] flex w-[15em] justify-around"
+              >
+                <span className="w-[13em] text-end"> {genre}: </span>
+                <ProgressBar percentage={genres[genre]} />
+              </li>
+            ))
+          ) : (
+            <p>No data</p>
+          )}
+        </ul>
+      </div>
+      {/* <div className="bg-white w-full h-[34rem]">
+        
+        
           {data[series].synopsis ? (
             <p className="hidden">Synopsis: {data[series].synopsis}</p>
           ) : null}
@@ -79,21 +88,7 @@ const Card = ({
               : null}
           </div>
         </div>
-        <ul className="p-[.4rem]">
-          {data[series].genres ? (
-            Object.keys(data[series].genres).map((genre) => (
-              <li
-                key={genre}
-                className="text-[.7rem] flex w-[15em] justify-around"
-              >
-                <span className="w-[13em] text-end"> {genre}: </span>
-                <ProgressBar percentage={data[series].genres[genre]} />
-              </li>
-            ))
-          ) : (
-            <p>No data</p>
-          )}
-        </ul>
+        
       </div> */}
     </div>
   );

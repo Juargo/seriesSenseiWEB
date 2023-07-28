@@ -44,7 +44,7 @@ const SeriesList = ({
             score={series[serie].score}
             synopsis={series[serie].synopsis}
             genres_real={series[serie].genres_real}
-            genre={series[serie].genre}
+            genres={series[serie].genres}
           ></Card>
         ))}
     </div>
