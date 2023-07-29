@@ -8,6 +8,11 @@ const gridStyle = {
   gridTemplateColumns: "1fr 1fr 1fr",
 };
 
+const genreStyle = {
+  background: "#676DB7",
+  color: "white",
+};
+
 const Card = ({
   clickRecolectData,
   name,
@@ -20,6 +25,17 @@ const Card = ({
   genres_real,
   genres,
 }) => {
+  const isGenresReal = (genre) => {
+    if (genres_real) {
+      return (
+        genres_real.find(
+          (x) => x.name.toLowerCase() === genre.toLowerCase()
+        ) !== undefined
+      );
+    } else {
+      return false;
+    }
+  };
   return (
     <div className="border-[#2E3690] border-[1px] rounded-md">
       <header className="bg-[#474E9F] p-[.4rem] pb-[3px] ">
@@ -45,7 +61,7 @@ const Card = ({
         </div>
       </header>
 
-      <div className="bg-white w-full h-[34rem]">
+      <div className="bg-white w-full h-[27rem]">
         <div className="h-[9rem] relative p-[5px] flex  gap-[6px] ">
           <img src={url} alt={name} className="h-full" />
           <div className="text-[.7rem] flex flex-col items-center justify-center">
@@ -66,7 +82,7 @@ const Card = ({
           </div>
         </div>
 
-        <div style={gridStyle} className="text-[.7rem]">
+        {/* <div style={gridStyle} className="text-[.7rem]">
           {genres_real
             ? genres_real.map((x, index) => {
                 return (
@@ -79,7 +95,7 @@ const Card = ({
                 );
               })
             : null}
-        </div>
+        </div> */}
         <ul className="p-[.4rem]">
           {genres ? (
             Object.keys(genres).map((genre) => (
@@ -87,7 +103,12 @@ const Card = ({
                 key={genre}
                 className="text-[.7rem] flex w-[15em] justify-around"
               >
-                <span className="w-[13em] text-end"> {genre}: </span>
+                <span
+                  className="w-[13em] text-end"
+                  style={isGenresReal(genre) ? genreStyle : {}}
+                >
+                  {genre}:
+                </span>
                 <ProgressBar percentage={genres[genre]} />
               </li>
             ))
@@ -96,26 +117,6 @@ const Card = ({
           )}
         </ul>
       </div>
-      {/* <div className="bg-white w-full h-[34rem]">
-        
-        
-          {data[series].synopsis ? (
-            <p className="hidden">Synopsis: {data[series].synopsis}</p>
-          ) : null}
-          <div style={gridStyle}>
-            {data[series] && data[series].genres_real
-              ? data[series].genres_real.map((x, index) => {
-                  return (
-                    <p key={index} className="p-[5px] bg-blue-700 text-white">
-                      {x.name}
-                    </p>
-                  );
-                })
-              : null}
-          </div>
-        </div>
-        
-      </div> */}
     </div>
   );
 };
