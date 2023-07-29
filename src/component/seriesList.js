@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./card";
+import SearchBox from "../component/searchBox";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +10,7 @@ const SeriesList = ({
   newSerieChange,
   buttonAgregar,
   recolectDataAgain,
+  onSearch,
 }) => {
   return (
     <div
@@ -17,17 +19,20 @@ const SeriesList = ({
     >
       <div className="border-[#2E3690] border-[.09rem] rounded-md">
         <h2 className="font-bold bg-[#474E9F] text-white text-[.7rem] p-[.4rem] flex justify-between">
-          <input
+          {/* <input
             type="text"
             onChange={newSerieChange}
             className="border border-black"
-          />
-          <button
-            onClick={buttonAgregar}
-            className="bg-[#676DB7] text-white text-[.7rem] w-[1.4rem] rounded-md hover:bg-[#979BD5]"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
+          /> */}
+          <SearchBox searchChange={onSearch} />
+          {Object.keys(series).length === 0 && (
+            <button
+              onClick={buttonAgregar}
+              className="bg-[#676DB7] text-white text-[.7rem] w-[1.4rem] rounded-md hover:bg-[#979BD5]"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          )}
         </h2>
       </div>
       {series &&

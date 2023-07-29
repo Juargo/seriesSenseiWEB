@@ -12,7 +12,7 @@ function App() {
   }, []);
 
   const [series, setSeries] = useState([]);
-  const [searchfield, setSearchField] = useState([]);
+  const [searchfield, setSearchField] = useState("");
   const [newSerie, setNewSerie] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +33,7 @@ function App() {
   };
 
   const handleButtonClick = () => {
-    setAllDataAnime(newSerie);
+    setAllDataAnime(searchfield);
     setNewSerie(""); // reset input
   };
 
@@ -58,6 +58,13 @@ function App() {
     }
   };
 
+  // TO-DO: SABER PORQUE SE REPLICA TANTO EN LOG
+  const filteredSeries = Object.entries(series)
+    .filter(([serieName, serie]) => {
+      return serieName.toLowerCase().includes(searchfield.toLowerCase());
+    })
+    .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
+
   return (
     <div className="m-2">
       <h1 className="text-[1.5rem] font-bold text-center uppercase text-[#A46314]">
@@ -67,7 +74,6 @@ function App() {
         <p>Loading...</p>
       ) : (
         <>
-          <SearchBox searchChange={onSearchChange} />
           <Scroll>
             {isLoading && (
               <div
@@ -88,10 +94,11 @@ function App() {
               </div>
             )}
             <SeriesList
-              series={series}
+              series={filteredSeries}
               newSerieChange={handleInputChange}
               buttonAgregar={handleButtonClick}
               recolectDataAgain={setAllDataAnime}
+              onSearch={onSearchChange}
             ></SeriesList>
           </Scroll>
         </>

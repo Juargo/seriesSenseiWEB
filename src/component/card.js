@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate, faStar } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "./progressBar";
 
-const gridStyle = {
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
-};
+// const gridStyle = {
+//   display: "grid",
+//   gridTemplateColumns: "1fr 1fr 1fr",
+// };
 
 const genreStyle = {
   background: "#676DB7",
@@ -66,18 +66,20 @@ const Card = ({
           <img src={url} alt={name} className="h-full" />
           <div className="text-[.7rem] flex flex-col items-center justify-center">
             <table>
-              <tr>
-                <td className="font-bold">Score:</td>
-                {score ? (
-                  <td className="pl-[1px] flex items-center">
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-[.6rem] mr-[1px]"
-                    />
-                    {score}
-                  </td>
-                ) : null}
-              </tr>
+              <tbody>
+                <tr>
+                  <td className="font-bold">Score:</td>
+                  {score ? (
+                    <td className="pl-[1px] flex items-center">
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        className="text-[.6rem] mr-[1px]"
+                      />
+                      {score}
+                    </td>
+                  ) : null}
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
