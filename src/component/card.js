@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotate, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faRotate, faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "./progressBar";
 
 // const gridStyle = {
@@ -24,6 +24,7 @@ const Card = ({
   synopsis,
   genres_real,
   genres,
+  onDeleteSerie,
 }) => {
   const isGenresReal = (genre) => {
     if (genres_real) {
@@ -38,18 +39,26 @@ const Card = ({
   };
   return (
     <div className="border-[#2E3690] border-[1px] rounded-md">
-      <header className="bg-[#474E9F] p-[.4rem] pb-[3px] ">
+      <header className="bg-[#474E9F] p-[.4rem] pb-[3px] " title={name}>
         <h2
           className="font-bold  text-white text-[.7rem] flex justify-between"
           title={name}
         >
-          {name.length > 20 ? name.substring(0, 20) + "..." : name}
-          <button
-            onClick={() => clickRecolectData(name)}
-            className="bg-[#676DB7] text-white text-[.7rem] w-[1.4rem] rounded-md hover:bg-[#979BD5]"
-          >
-            <FontAwesomeIcon icon={faRotate} />
-          </button>
+          {name.length > 17 ? name.substring(0, 17) + "..." : name}
+          <div>
+            <button
+              onClick={() => clickRecolectData(name)}
+              className="bg-[#676DB7] text-white text-[.7rem] w-[1.4rem] rounded-md hover:bg-[#979BD5]"
+            >
+              <FontAwesomeIcon icon={faRotate} />
+            </button>
+            <button
+              onClick={() => onDeleteSerie(name)}
+              className="bg-[#c55f5fe8] text-white text-[.7rem] w-[1.4rem] rounded-md hover:bg-[#979BD5] ml-[5px]"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+          </div>
         </h2>
         <div className="flex justify-between mt-[4px]">
           <span className="text-white text-[.6rem] ">

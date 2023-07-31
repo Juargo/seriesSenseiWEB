@@ -58,6 +58,28 @@ function App() {
     }
   };
 
+  const deleteSerie = async (serie) => {
+    setIsLoading(true);
+    try {
+      const respuesta = await fetch(
+        `https://seriessenseiapi.onrender.com/series/delete-serie?serie=${serie}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const datos = await respuesta.json().then(() => setIsLoading(false));
+
+      // Ahora puedes usar los datos
+      getSeries();
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Hubo un problema con la petición Fetch:", error);
+    }
+  };
+
   // TO-DO: SABER PORQUE SE REPLICA TANTO EN LOG
   const filteredSeries = Object.entries(series)
     .filter(([serieName, serie]) => {
@@ -99,6 +121,7 @@ function App() {
               buttonAgregar={handleButtonClick}
               recolectDataAgain={setAllDataAnime}
               onSearch={onSearchChange}
+              onDelete={deleteSerie}
             ></SeriesList>
           </Scroll>
         </>

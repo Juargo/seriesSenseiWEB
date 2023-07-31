@@ -11,6 +11,7 @@ const SeriesList = ({
   buttonAgregar,
   recolectDataAgain,
   onSearch,
+  onDelete,
 }) => {
   return (
     <div
@@ -50,6 +51,7 @@ const SeriesList = ({
             synopsis={series[serie].synopsis}
             genres_real={series[serie].genres_real}
             genres={series[serie].genres}
+            onDeleteSerie={onDelete}
           ></Card>
         ))}
     </div>
